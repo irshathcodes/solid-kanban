@@ -13,7 +13,8 @@ const boards = [
 export default function Home() {
     return (
         <main>
-            <ul class="flex gap-8 flex-wrap m-8">
+            <h1 class="text-xl font-semibold my-4">Boards ({boards.length})</h1>
+            <ul class="flex gap-8 flex-wrap my-8">
                 <For each={boards}>
                     {(board) => (
                         <li>
