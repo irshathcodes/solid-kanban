@@ -1,13 +1,12 @@
 import { createMutation } from "@tanstack/solid-query";
-import { queryClient } from "~/app";
-import { getBoardsQuery, promiseTimeout } from "~/lib/query-options-factory";
+import { queryClient } from "~/lib/query-client";
+import { getBoardsQuery } from "~/lib/query-options-factory";
+import { getIsLocal } from "~/lib/utils";
 
 export function createBoardMutation() {
-    const isLocal = queryClient.getDefaultOptions().mutations?.meta?.isLocal;
-
     return createMutation(() => ({
         mutationFn: async (boardName: string) => {
-            if (isLocal) {
+            if (getIsLocal()) {
                 queryClient.setQueryData(
                     getBoardsQuery().queryKey,
                     (boards) => [

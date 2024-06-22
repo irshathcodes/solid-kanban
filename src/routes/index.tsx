@@ -7,8 +7,8 @@ export default function Home() {
     const boardsQuery = createQuery(getBoardsQuery);
 
     return (
-        <main>
-            <h1 class="text-xl font-semibold my-4">
+        <main class="px-10">
+            <h1 class="text-xl font-semibold my-4 mt-6">
                 Boards ({boardsQuery?.data?.length})
             </h1>
             <Switch>

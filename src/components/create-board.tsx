@@ -1,3 +1,4 @@
+import { createSignal } from "solid-js";
 import {
     Dialog,
     DialogContent,
@@ -12,20 +13,22 @@ import {
     TextFieldLabel,
 } from "~/components/ui/text-field";
 import { Button, buttonVariants } from "~/components/ui/button";
-import { createMutation } from "@tanstack/solid-query";
 import { createBoardMutation } from "~/lib/mutation-factory";
 
 export function CreateBoard() {
+    const [open, setOpen] = createSignal(false);
     const { mutate } = createBoardMutation();
 
     const handleSubmit = (e: Event) => {
         e.preventDefault();
         const fd = new FormData(e.target as HTMLFormElement);
-        const boardName = fd.get("board-name");
-        mutate();
+        const boardName = fd.get("board-name") as string;
+        mutate(boardName);
+        setOpen(false);
     };
+
     return (
-        <Dialog>
+        <Dialog open={open()} onOpenChange={setOpen}>
             <DialogTrigger
                 class={buttonVariants({
                     size: "icon",
@@ -53,9 +56,9 @@ export function CreateBoard() {
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit}>
-                    <div class="mb-4">
+                    <div class="mt-3 mb-4">
                         <TextField>
-                            <TextFieldLabel class="mb-2 block">
+                            <TextFieldLabel class="mb-3 block">
                                 Enter board name
                             </TextFieldLabel>
                             <TextFieldInput
@@ -63,6 +66,7 @@ export function CreateBoard() {
                                 type="text"
                                 required
                                 autocomplete="off"
+                                placeholder="Eg: My Progress"
                             />
                         </TextField>
                     </div>

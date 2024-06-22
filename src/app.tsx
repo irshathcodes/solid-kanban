@@ -4,26 +4,16 @@ import { SolidQueryDevtools } from "@tanstack/solid-query-devtools";
 import { Suspense } from "solid-js";
 import "./app.css";
 import "@fontsource/inter";
-import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { Topbar } from "~/components/topbar";
-
-export const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-        },
-        mutations: {
-            meta: {
-                // TODO
-                isLocal: true,
-            },
-        },
-    },
-});
+import { persister, queryClient } from "~/lib/query-client";
+import { PersistQueryClientProvider } from "@tanstack/solid-query-persist-client";
 
 export default function App() {
     return (
-        <QueryClientProvider client={queryClient}>
+        <PersistQueryClientProvider
+            client={queryClient}
+            persistOptions={{ persister }}
+        >
             <SolidQueryDevtools />
             <Router
                 root={(props) => (
@@ -35,6 +25,6 @@ export default function App() {
             >
                 <FileRoutes />
             </Router>
-        </QueryClientProvider>
+        </PersistQueryClientProvider>
     );
 }
