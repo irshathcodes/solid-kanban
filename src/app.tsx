@@ -12,6 +12,12 @@ export const queryClient = new QueryClient({
         queries: {
             refetchOnWindowFocus: false,
         },
+        mutations: {
+            meta: {
+                // TODO
+                isLocal: true,
+            },
+        },
     },
 });
 

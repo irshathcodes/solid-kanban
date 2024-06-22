@@ -17,6 +17,6 @@ export function getBoardsQuery() {
     });
 }
 
-function promiseTimeout(delayMs: number) {
+export function promiseTimeout(delayMs: number) {
     return new Promise((res) => setTimeout(res, delayMs));
 }
