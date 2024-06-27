@@ -2,10 +2,11 @@ import { A } from "@solidjs/router";
 import { CreateBoard } from "~/components/create-board";
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { buttonVariants } from "~/components/ui/button";
+import * as Dropdown from "~/components/ui/dropdown-menu";
 
 export function Topbar() {
     return (
-        <header class="flex items-center justify-between gap-2 py-1.5 bg-muted text-muted-foreground px-4">
+        <header class="flex items-center justify-between gap-2 py-1.5 px-4">
             <A
                 href="/"
                 class={buttonVariants({ size: "icon", variant: "outline" })}
@@ -22,12 +23,20 @@ export function Topbar() {
                     ></path>
                 </svg>
             </A>
-
             <div class="flex gap-4">
                 <CreateBoard />
-                <Avatar class="bg-popover">
-                    <AvatarFallback>IR</AvatarFallback>
-                </Avatar>
+                <Dropdown.DropdownMenu>
+                    <Dropdown.DropdownMenuTrigger>
+                        <Avatar class="bg-muted text-muted-foreground">
+                            <AvatarFallback>IR</AvatarFallback>
+                        </Avatar>
+                    </Dropdown.DropdownMenuTrigger>
+                    <Dropdown.DropdownMenuContent>
+                        <Dropdown.DropdownMenuCheckboxItem>
+                            Dark mode
+                        </Dropdown.DropdownMenuCheckboxItem>
+                    </Dropdown.DropdownMenuContent>
+                </Dropdown.DropdownMenu>
             </div>
         </header>
     );
